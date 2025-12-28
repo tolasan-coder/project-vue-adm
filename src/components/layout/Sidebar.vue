@@ -68,7 +68,7 @@ async function handleLogout() {
     try {
         await auth.logout()
         alert("logout success!!")
-        // router.push('/login')
+        router.push('/login');
     }
     catch (err) {
         console.log(err);
@@ -86,7 +86,8 @@ async function handleLogout() {
     left: 0;
     width: 250px;
     height: calc(100vh - 56px);
-    background-color: #212529;
+    background-image: linear-gradient(#FFC0D6, #E0709F);
+    color: #fff;
     transition: transform 0.3s ease;
     overflow-y: auto;
 }
@@ -96,12 +97,37 @@ async function handleLogout() {
 }
 
 .nav-link {
-    color: #adb5bd;
+    color: #ffffff;
+    font-weight: 500;
 }
 
 .nav-link.active,
 .nav-link:hover {
     color: #fff;
-    background-color: #343a40;
+    background-image: linear-gradient(#C850C0, #5772f9);
+}
+
+.sidebar .text-secondary {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Make buttons inside the sidebar show a filled blue background on hover/focus */
+.sidebar .btn,
+.sidebar button {
+    color: #fff;
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.15);
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.sidebar .btn:hover,
+.sidebar button:hover,
+.sidebar .btn:focus,
+.sidebar button:focus,
+.sidebar .btn:focus-visible,
+.sidebar button:focus-visible {
+    background-color: #0b5ed7;
+    color: #fff;
+    border-color: #0b5ed7;
 }
 </style>

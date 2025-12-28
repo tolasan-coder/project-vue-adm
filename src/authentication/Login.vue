@@ -87,8 +87,9 @@ async function handleLogin() {
                 email: email.value,
                 password: password.value
             }
-        )
-        router.push('/')
+        );
+        auth.fetchProfile();
+        // router.push('/')
     }
     catch (err) {
         console.log(err);

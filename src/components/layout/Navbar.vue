@@ -17,3 +17,32 @@
 import { useSideStatusStore } from '@/stores/sidebarStatus';
 const statuesModal = useSideStatusStore();
 </script>
+
+<style scoped>
+nav.navbar {
+    background-image: linear-gradient(#FFC0D6);
+    color: #fff;
+}
+
+.navbar-brand,
+.ms-auto .text-white {
+    color: #fff !important;
+}
+
+.btn.btn-outline-light {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: transparent;
+}
+
+.btn.btn-outline-light:hover,
+.btn.btn-outline-light:focus {
+    background-image: linear-gradient(#FFC0D6);
+    color: #fff;
+    border-color: #0b5ed7;
+}
+
+.ms-auto img.rounded-circle {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+</style>

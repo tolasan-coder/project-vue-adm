@@ -1,8 +1,11 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+// -----> style register
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "@/assets/main.css";
+
 import BaseButton from "./components/ui/base/BaseButton.vue";
 import BaseInput from "./components/ui/base/BaseInput.vue";
 import BaseModal from "./components/ui/base/BaseModal.vue";
