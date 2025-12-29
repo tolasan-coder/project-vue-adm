@@ -1,4 +1,9 @@
 <template>
+    <div v-if="isShowToast">
+        <base-toast @closeToast="handleToast" :message="messToast">
+            <p>message</p>
+        </base-toast>
+    </div>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-4">
@@ -58,6 +63,12 @@ const auth = useAuthStore();
 let email = ref('')
 let password = ref('')
 
+let Loading = ref(false);
+let disabled = ref(false);
+let isShowpass = ref(false);
+let isShowToast = ref(false);
+let messToast = ref('');
+
 const { errors, validateField } = useRequiredValidator();
 
 const validateEmail = () => validateField("email", email.value, "Email is required");
@@ -74,10 +85,6 @@ const validateForm = () => {
     return isValid;
 };
 
-let Loading = ref(false);
-let disabled = ref(false);
-let isShowpass = ref(false);
-
 async function handleLogin() {
     if (!validateForm()) return;
     try {
@@ -93,10 +100,16 @@ async function handleLogin() {
     }
     catch (err) {
         console.log(err);
+        isShowToast.value = !isShowToast.value
+        messToast.value = err.response.data.message;
     }
     finally {
         Loading.value = false;
     }
+}
+
+function handleToast() {
+    // isShowToast.value = !isShowToast.value
 }
 </script>
 

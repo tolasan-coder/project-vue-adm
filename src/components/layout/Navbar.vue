@@ -20,7 +20,7 @@ const statuesModal = useSideStatusStore();
 
 <style scoped>
 nav.navbar {
-    background-image: linear-gradient(#FFC0D6);
+    background-image: linear-gradient(#99236A);
     color: #fff;
 }
 

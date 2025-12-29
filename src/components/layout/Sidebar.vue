@@ -67,7 +67,6 @@ function statusModal() {
 async function handleLogout() {
     try {
         await auth.logout()
-        alert("logout success!!")
         router.push('/login');
     }
     catch (err) {
@@ -86,7 +85,7 @@ async function handleLogout() {
     left: 0;
     width: 250px;
     height: calc(100vh - 56px);
-    background-image: linear-gradient(#FFC0D6, #E0709F);
+    background-image: linear-gradient(#99236A, #5C30C9, #044CC9);
     color: #fff;
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -101,10 +100,14 @@ async function handleLogout() {
     font-weight: 500;
 }
 
-.nav-link.active,
+.nav-link.active {
+    color: #fff;
+    background-image: linear-gradient(#5772f9);
+}
+
 .nav-link:hover {
     color: #fff;
-    background-image: linear-gradient(#C850C0, #5772f9);
+    background-image: linear-gradient(#5772f99d);
 }
 
 .sidebar .text-secondary {

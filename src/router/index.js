@@ -4,7 +4,7 @@ import ArticleCreateVue from "@/views/article/ArticleCreateVue.vue";
 import ArticleListView from "@/views/article/ArticleListView.vue";
 import DashboardView from "@/views/DashboardView.vue";
 import { createRouter, createWebHistory } from "vue-router";
-
+import { useAuthStore } from "@/stores/auth";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -47,8 +47,30 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to) => {
+  console.log("to", to.name);
+  const authStore = useAuthStore();
   document.title = to.meta.title ? to.meta.title + " - My Admin" : "My Admin";
+
+  // protech (ka pea pel ke vai rout derect)
+  if (authStore.token && !authStore.user) {
+    try {
+      await authStore.fetchProfile();
+    } catch (e) {
+      authStore.logout();
+      return { name: "login" };
+    }
+  }
+
+  // protech pii login kom oy vai rout tv dashboard trov ka login sen
+  if (!authStore.isAuthenticate && to.name !== "login") {
+    return { name: "login" };
+  }
+
+  // keapea when yg have token and profile ot oy ke vai rout to login
+  if (authStore.isAuthenticate && to.name === "login") {
+    return { name: "dashboard" };
+  }
   return true;
 });
 
