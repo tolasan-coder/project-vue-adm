@@ -12,12 +12,12 @@
 
         <!-- body list all own article -->
         <div v-if="isModal">
-            <base-modal title="Delete Article?">
+            <base-modal title="Delete Article?" @close="isModal = false">
                 <template #body>
                     Are you sure ?
                 </template>
                 <template #footer>
-                    <base-button @click="handleDelete">
+                    <base-button @click="handleDelete" :isLoading="isLoadingDelete">
                         Delete
                     </base-button>
                 </template>
@@ -45,14 +45,16 @@
 import { onMounted, ref } from 'vue';
 import { useArtitleStore } from '@/stores/article';
 const articleStore = useArtitleStore();
+
 let isModal = ref(false);
 let selectId = ref(null);
-let isLoadingDelete = ref(Boolean)
-// articleStore.getOwnArticle();
-// console.log("ownArticle:", articleStore.ownArticle)
+let isLoadingDelete = ref(false);
+
 onMounted(async () => {
     await articleStore.getOwnArticle();
 })
+
+// for create colunm table th
 const columns = [
     { key: 'title', label: 'Title' },
     { key: 'category', label: 'Category' },
@@ -68,17 +70,20 @@ const onDelete = (id) => {
     console.log("Article Delete :", id);
     selectId.value = id;
     isModal.value = true;
-    // console.log
 }
+
+// delete article
 const handleDelete = async () => {
     if (!selectId.value) return;
     try {
-        // isLoadingDelete.value = 
+        isLoadingDelete.value = true;
         await articleStore.deleteArticle(selectId.value);
         await articleStore.getOwnArticle();
         isModal.value = false;
+
         // clear id after delete
         selectId.value = null;
+        isLoadingDelete.value = false;
     }
     catch (err) {
         console.log(err);

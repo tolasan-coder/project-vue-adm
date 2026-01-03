@@ -15,9 +15,7 @@ export const useArtitleStore = defineStore("article", () => {
     try {
       isLoadding.value = true;
       const res = await api.get("/articles");
-      // console.log(res.data.data.items);
       articles.value = res.data.data.items;
-      console.log("articles", articles);
     } catch (error) {
       console.log(error);
     } finally {
@@ -78,10 +76,9 @@ export const useArtitleStore = defineStore("article", () => {
 
   // delete article
   const deleteArticle = async (id) => {
-    console.log(id);
     try {
       const res = await api.delete(`/articles/${id}`);
-      console.log(res.data);
+      console.log("delete article mss:", res.data);
     } catch (err) {
       console.log(err);
     }

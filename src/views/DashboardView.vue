@@ -8,6 +8,8 @@
         </div>
         <div class="row">
             <div class="col-md-4 mb-4" v-for="art in artStore.articles" :key="art.id">
+                <!-- loading article -->
+                <ArticleCaedSkeleton v-if="artStore.isLoadding" />
                 <ArticleCard :id="art.id" :title="art.title" :thumbnail="art.thumbnail" :content="art.content"
                     :avatar="art.avatar" :creatorName="art.creatorName" />
             </div>
@@ -17,21 +19,19 @@
 <script setup>
 import ArticleCard from '@/components/common/ArticleCard.vue';
 import { useArtitleStore } from '@/stores/article';
-const artStore = useArtitleStore();
 import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+const artStore = useArtitleStore();
 const router = useRouter();
-// let articles = ref([]);
+
+// link to create article page
 function createArticle() {
     router.push({ name: 'article.create' })
 }
+
+// load all article from api
 onMounted(async () => {
     await artStore.getAllArticle();
-    // articles.value = artStore.articles;
-    console.log("dashboardArt:", artStore.articles)
-    console.log(artStore.isLoadding);
-})
-function handleReadMore() {
-    alert();
-}
+});
 </script>

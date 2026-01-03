@@ -28,8 +28,8 @@ const props = defineProps({
     size: { type: String, default: "" },
 });
 
+// click out side modal close modal and x button 
 const emit = defineEmits(["close"]);
-
 const close = () => emit("close");
 
 const sizeClass = computed(() => (props.size ? `modal-${props.size}` : ""));

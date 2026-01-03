@@ -55,7 +55,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
-  console.log("to", to.name);
+  // console.log("to", to.name);
   const authStore = useAuthStore();
   document.title = to.meta.title ? to.meta.title + " - My Admin" : "My Admin";
 
@@ -68,8 +68,6 @@ router.beforeEach(async (to) => {
       return { name: "login" };
     }
   }
-
-  console.log("isAuthen is index.js", authStore.isAuthenticate);
 
   // protech pii login kom oy vai rout tv dashboard trov ka login sen
   if (!authStore.isAuthenticate && to.name !== "login") {

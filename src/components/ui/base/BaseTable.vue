@@ -8,6 +8,8 @@
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
+
+        <!-- loding data  -->
         <tbody v-if="isLoading">
             <tr v-for="n in 5" :key="n">
                 <td :colspan="columns.length + 1">
@@ -17,13 +19,16 @@
                 </td>
             </tr>
         </tbody>
+
         <tbody v-else>
+            <!-- ber ot mean data vea show -->
             <tr v-if="!items.length">
                 <td :colspan="columns.length + 1" class="text-center py-5">
                     <p class="fw-semibold mb-0">No data found</p>
                 </td>
             </tr>
 
+            <!-- ber mean data -->
             <tr v-for="item in items" :key="item.id">
                 <td v-for="col in columns" :key="col.key">
                     <slot :name="`column-${col.key}`" :item="item">
