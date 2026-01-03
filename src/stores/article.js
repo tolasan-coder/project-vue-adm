@@ -51,10 +51,48 @@ export const useArtitleStore = defineStore("article", () => {
       console.log("Success");
     }
   };
+
+  // create article
+  const createArticle = async (payload) => {
+    try {
+      const res = await api.post(`/articles`, payload);
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    } finally {
+      console.log("Error");
+    }
+  };
+
+  // create thumnail article
+  const createThumbnail = async (id, payload) => {
+    try {
+      const res = await api.post(`/articles/${id}/thumbnail`, payload, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // delete article
+  const deleteArticle = async (id) => {
+    console.log(id);
+    try {
+      const res = await api.delete(`/articles/${id}`);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return {
     getAllArticle,
     getArticleById,
     getOwnArticle,
+    createArticle,
+    createThumbnail,
+    deleteArticle,
     my_article,
     my_loading,
     isLoadding,

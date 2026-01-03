@@ -3,7 +3,7 @@
         <label v-if="label" :for="id" class="form-label">{{ label }}</label>
         <input :type="type" :id="id" :value="modelValue" :placeholder="placeholder"
             :class="['form-control', { 'is-invalid': error }]" :disabled="disabled"
-            @input="$emit('update:modelValue', $event.target.value)" />
+            @input="$emit('update:modelValue', $event.target.value)" @blur="$emit('blur')" />
         <div v-if="error" class="invalid-feedback">{{ error }}</div>
     </div>
 </template>
@@ -17,7 +17,7 @@ const props = defineProps({
     error: String,
     disabled: { type: Boolean, default: false },
 })
-const emit = defineEmits(["update:modelValue", "changeInput"])
+const emit = defineEmits(["update:modelValue", "changeInput", "blur"])
 </script>
 <style scoped>
 .form-control.is-invalid {

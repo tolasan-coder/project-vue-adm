@@ -11,6 +11,18 @@
         </div>
 
         <!-- body list all own article -->
+        <div v-if="isModal">
+            <base-modal title="Delete Article?">
+                <template #body>
+                    Are you sure ?
+                </template>
+                <template #footer>
+                    <base-button @click="handleDelete">
+                        Delete
+                    </base-button>
+                </template>
+            </base-modal>
+        </div>
         <div>
             <base-table :columns="columns" :items="articleStore.my_article" :isLoading="articleStore.my_loading"
                 @edit="onEdit" @delete="onDelete">
@@ -30,9 +42,12 @@
     </div>
 </template>
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useArtitleStore } from '@/stores/article';
 const articleStore = useArtitleStore();
+let isModal = ref(false);
+let selectId = ref(null);
+let isLoadingDelete = ref(Boolean)
 // articleStore.getOwnArticle();
 // console.log("ownArticle:", articleStore.ownArticle)
 onMounted(async () => {
@@ -51,5 +66,22 @@ const onEdit = (id) => {
 
 const onDelete = (id) => {
     console.log("Article Delete :", id);
+    selectId.value = id;
+    isModal.value = true;
+    // console.log
+}
+const handleDelete = async () => {
+    if (!selectId.value) return;
+    try {
+        // isLoadingDelete.value = 
+        await articleStore.deleteArticle(selectId.value);
+        await articleStore.getOwnArticle();
+        isModal.value = false;
+        // clear id after delete
+        selectId.value = null;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 </script>
