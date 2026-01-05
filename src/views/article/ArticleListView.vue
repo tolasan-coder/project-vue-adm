@@ -43,9 +43,11 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue';
-import { useArtitleStore } from '@/stores/article';
+import { useArticleStore } from '@/stores/article';
 import { useRouter } from 'vue-router';
-const articleStore = useArtitleStore();
+
+
+const articleStore = useArticleStore();
 const router = useRouter();
 
 let isModal = ref(false);
