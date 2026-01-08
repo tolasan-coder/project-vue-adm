@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand navbar-modern fixed-top px-4">
+  <nav class="navbar navbar-expand navbar-modern fixed-top px-5">
     <!-- Sidebar toggle -->
     <button
       @click="statuesModal.sidebarStatus()"
@@ -11,7 +11,6 @@
 
     <!-- Brand -->
     <span class="navbar-brand fw-semibold">Portfolio</span>
-
     <!-- User -->
     <div class="ms-auto d-flex align-items-center user-info">
       <img :src="userImg" class="avatar" alt="avatar" />

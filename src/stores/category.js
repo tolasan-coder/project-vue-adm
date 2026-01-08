@@ -10,6 +10,7 @@ export const useCategoryStore = defineStore("category", () => {
     try {
       isLoading.value = true;
       const res = await api.get("/categories");
+      console.log(res.data.data.item);
       categories.value = res.data.data.items;
     } catch (err) {
       console.error("Error fetching categories:", err);

@@ -119,6 +119,7 @@ const validateForm = () => {
     formData.value.content,
     "Content is required"
   );
+  
   return v1 && v2 && v3;
 };
 
@@ -132,3 +133,9 @@ const resetForm = () => {
 
 defineExpose({ formData, validateForm, resetForm, existingThumbnail });
 </script>
+
+<style scoped>
+.border {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+</style>

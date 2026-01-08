@@ -1,4 +1,5 @@
 import Login from "@/authentication/Login.vue";
+import SignUp from "@/authentication/SignUp.vue";
 import DashboardLayout from "@/layouts/DashboardLayout.vue";
 import ArticleCreateVue from "@/views/article/ArticleCreateVue.vue";
 import ArticleListView from "@/views/article/ArticleListView.vue";
@@ -7,6 +8,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import ArticlePreviewView from "@/views/article/ArticlePreviewView.vue";
 import ArticleEdit from "@/views/article/ArticleEdit.vue";
+import CategoryView from "@/views/category/CategoryView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -50,6 +52,11 @@ const router = createRouter({
             },
           ],
         },
+        {
+          path: "/category",
+          name: "category",
+          component: CategoryView,
+        },
       ],
       linkActiveClass: "active btn btn-primary text-light",
     },
@@ -58,6 +65,11 @@ const router = createRouter({
       component: Login,
       name: "login",
       meta: { title: "Login" },
+    },
+    {
+      path: "/signup",
+      name: "Signup",
+      component: SignUp,
     },
   ],
 });
