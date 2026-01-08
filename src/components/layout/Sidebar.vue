@@ -54,7 +54,7 @@
 
         <!-- Logout -->
         <li class="nav-item mt-3">
-          <base-button type="button" @click="statusModal" variants="primary"
+          <base-button type="button" @click="statusModal" class="btn-logout"
             >Logout</base-button
           >
         </li>
@@ -105,20 +105,24 @@ async function handleLogout() {
 }
 
 .nav-link {
-  /* color: #ffffff; */
-
+  color: #3b54cef9;
   font-weight: 500;
 }
 
 .nav-link.active {
-  color: #fff;
+  color: #3b54cef9;
   background-color: var(--btn-default);
 }
-
+.btn-logout {
+  background-color: #3b54cef9;
+}
+.btn-logout:hover {
+  background-color: #1b32a2f9;
+}
 .nav-link:hover {
   color: #fff;
-  background-color: var(--btn-hover);
-  color: #1c3cddce;
+  background-color: #5772f952;
+  color: #1b32a2f9;
 }
 
 .sidebar .text-secondary {

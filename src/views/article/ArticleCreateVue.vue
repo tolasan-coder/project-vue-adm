@@ -7,7 +7,7 @@
     <RouterLink
       :to="{ name: 'article.index' }"
       :class="[
-        'btn btn-outline-secondary d-flex align-items-center gap-2',
+        'btn btn-primary d-flex align-items-center gap-2',
         isLoading ? 'disabled' : '',
       ]"
     >
