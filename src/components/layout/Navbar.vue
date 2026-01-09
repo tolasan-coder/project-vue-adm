@@ -13,90 +13,172 @@
     <span class="navbar-brand fw-semibold">Portfolio</span>
 
     <!-- User -->
-    <div class="ms-auto d-flex align-items-center user-info">
-      <img :src="userImg" class="avatar" alt="avatar" />
-      <span class="username">{{ userName }}</span>
+    <div class="ms-auto d-flex align-items-center position-relative user-info">
+      <!-- Trigger -->
+      <div class="user-menu d-flex align-items-center" @click="toggleMenu">
+        <img :src="userImg" class="avatar" alt="avatar" />
+        <span class="username ms-2">{{ userName }}</span>
+        <i class="pi pi-angle-down ms-1"></i>
+      </div>
+
+      <!-- Dropdown -->
+      <div v-show="showMenu" class="dropdown-menu-custom">
+        <a
+          class="dropdown-item p-2 rounded-3"
+          href="#"
+          style="color: #1c1917; font-weight: 500"
+        >
+          <i class="pi pi-user me-2"></i> Profile
+        </a>
+        <a
+          class="dropdown-item p-2 rounded-3"
+          href="#"
+          style="color: #1c1917; font-weight: 500"
+        >
+          <i class="pi pi-cog me-2"></i> Settings
+        </a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item text-danger fw-medium p-2 rounded-3" href="#">
+          <i class="pi pi-sign-out me-2"></i> Logout
+        </a>
+      </div>
     </div>
   </nav>
 </template>
 
 <script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useSideStatusStore } from "@/stores/sidebarStatus";
 import { useAuthStore } from "@/stores/auth";
-import { ref } from "vue";
+
 const statuesModal = useSideStatusStore();
 const authStore = useAuthStore();
-const User = authStore.user;
-const userName = ref("");
-const userImg = ref("");
-console.log("User navbar: ", User);
-userName.value = User.firstName + " " + User.lastName;
-userImg.value = User.avatar;
+
+/* dropdown state */
+const showMenu = ref(false);
+
+/* ✅ safer user data */
+const userName = computed(() => {
+  const user = authStore.user;
+  return user ? `${user.firstName} ${user.lastName}` : "User";
+});
+
+const userImg = computed(() => {
+  return authStore.user?.avatar || "/default-avatar.png";
+});
+
+/* toggle dropdown */
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
+};
+
+/* close when clicking outside */
+const handleClickOutside = (e) => {
+  if (!e.target.closest(".user-info")) {
+    showMenu.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
+
+/* actions */
+const goProfile = () => {
+  console.log("Go to profile");
+  showMenu.value = false;
+};
+
+const goSettings = () => {
+  console.log("Go to settings");
+  showMenu.value = false;
+};
+
+const logout = () => {
+  authStore.logout();
+  showMenu.value = false;
+};
 </script>
 
-<style>
-/* Navbar container */
-.navbar-modern {
-  height: 64px;
-  background: linear-gradient(
-    135deg,
-    rgba(68, 94, 225, 0.95),
-    rgba(99, 102, 241, 0.95)
-  );
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  color: #fff;
-  z-index: 1050;
+<style scoped>
+.user-menu {
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
 }
 
-/* Brand */
-.navbar-brand {
-  font-size: 1.1rem;
-  letter-spacing: 0.3px;
-  color: #fff;
+.user-menu:hover {
+  background-color: var(--bs-secondary-bg);
 }
 
-/* Icon button */
-.btn-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  border: none;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s ease;
-}
-
-.btn-icon:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
-}
-
-/* User section */
-.user-info {
-  gap: 10px;
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .username {
-  font-size: 0.9rem;
   font-weight: 500;
-  opacity: 0.95;
+  color: var(--bs-body-color);
 }
 
-/* Avatar */
+.user-menu {
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.user-menu:hover {
+  background-color: var(--bs-secondary-bg);
+}
+
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  transition: transform 0.2s ease;
 }
 
-.avatar:hover {
-  transform: scale(1.05);
+.username {
+  font-weight: 500;
+  color: var(--bs-body-color);
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  min-width: 200px;
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 10px;
+  padding: 6px 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+}
+
+.dropdown-menu-custom .dropdown-item {
+  padding: 10px 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  width: 100%;
+}
+
+.dropdown-menu-custom .dropdown-item:hover {
+  background-color: var(--bs-secondary-bg);
+}
+
+.dropdown-divider {
+  margin: 6px 0;
 }
 </style>

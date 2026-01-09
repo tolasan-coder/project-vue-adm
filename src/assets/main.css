@@ -17,3 +17,68 @@
 .btn-primary:hover {
   background-color: #213599f9;
 }
+
+/* Navbar container */
+.navbar-modern {
+  height: 64px;
+  background: linear-gradient(
+    135deg,
+    rgba(68, 94, 225, 0.95),
+    rgba(99, 102, 241, 0.95)
+  );
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  color: #fff;
+  z-index: 1050;
+}
+
+/* Brand */
+.navbar-brand {
+  font-size: 1.1rem;
+  letter-spacing: 0.3px;
+  color: #fff;
+}
+
+/* Icon button */
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+/* User section */
+.user-info {
+  gap: 10px;
+}
+
+.username {
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0.95;
+}
+
+/* Avatar */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+}
