@@ -52,6 +52,7 @@ const router = createRouter({
             },
           ],
         },
+        
         {
           path: "/category",
           name: "category",
